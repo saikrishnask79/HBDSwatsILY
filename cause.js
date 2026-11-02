@@ -53,23 +53,19 @@ drawStars();
 const reasons = [
     { 
         text: "Your kindness isn't just rare — it's a whole vibe. Grateful doesn't even begin to cover how I feel about our bond. 💜", 
-        emoji: "🌟",
-        gif: "gif1.gif"
+        emoji: "🌟"
     },
     { 
         text: "May today overflow with the same love and laughter you pour into everyone else's life. You deserve it tenfold. 🌸", 
-        emoji: "💜",
-        gif: "gif2.gif"
+        emoji: "💜"
     },
     { 
         text: "Wishing you a year full of plot twists you actually enjoy — success, peace, and everything your heart secretly hopes for. ✨", 
-        emoji: "🦋",
-        gif: "gif1.gif"
+        emoji: "🦋"
     },
     { 
         text: "Never change that energy of yours — the kind that makes everyone around you feel like they matter. Here's to you, superstar. 🥳", 
-        emoji: "⭐",
-        gif: "gif2.gif"
+        emoji: "⭐"
     }
 ];
 
