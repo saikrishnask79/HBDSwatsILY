@@ -52,19 +52,19 @@ drawStars();
 // ============================
 const reasons = [
     { 
-        text: "I notice how naturally you look out for everyone in our circle. That kindness is one of the many things that made me fall for you.", 
+        text: "Your kindness isn't just rare — it's a whole vibe. Grateful doesn't even begin to cover how I feel about our bond. 💜", 
         emoji: "🌟"
     },
     { 
-        text: "Your smile stays with me long after we say goodbye. Even an ordinary day feels brighter just because I got to see you.", 
+        text: "May today overflow with the same love and laughter you pour into everyone else's life. You deserve it tenfold. 🌸", 
         emoji: "💜"
     },
     { 
-        text: "I love how easy it feels to talk with you, laugh, share silly moments, and be completely myself around you. Those little moments with you mean everything to me.", 
+        text: "Wishing you a year full of plot twists you actually enjoy — success, peace, and everything your heart secretly hopes for. ✨", 
         emoji: "🦋"
     },
     { 
-        text: "You are more than beautiful to me, Swats. I love your heart, your warmth, and the way you make everyone feel special. I feel lucky that my favorite person is also the girl I love.", 
+        text: "Never change that energy of yours — the kind that makes everyone around you feel like they matter. Here's to you, superstar. 🥳", 
         emoji: "⭐"
     }
 ];
