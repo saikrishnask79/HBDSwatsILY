@@ -5,9 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Beautiful Memories ✨</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@300;400;500;600&display=swap');
-
         * {
             margin: 0;
             padding: 0;
@@ -16,34 +17,57 @@
 
         body {
             min-height: 100vh;
-            background: linear-gradient(135deg,
-                    #ffd1dc 0%,
-                    #e6e6fa 25%,
-                    #ffefd5 50%,
-                    #e6e6fa 75%,
-                    #ffd1dc 100%);
+            background: linear-gradient(-45deg, #1a0a2e, #2d1b4e, #1e0d3a, #0f1a3a);
             background-size: 400% 400%;
-            animation: gradientFlow 15s ease infinite;
-            font-family: 'Quicksand', sans-serif;
+            animation: gradientFlow 20s ease infinite;
+            font-family: 'Outfit', sans-serif;
             overflow-x: hidden;
-            color: #4a4a4a;
+            color: #e4ccff;
         }
 
         @keyframes gradientFlow {
-            0% {
-                background-position: 0% 50%;
-            }
-
-            50% {
-                background-position: 100% 50%;
-            }
-
-            100% {
-                background-position: 0% 50%;
-            }
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
-        /* Enhanced Sparkle Effect */
+        /* === GLOW ORBS === */
+        body::before,
+        body::after {
+            content: '';
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        body::before {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, #c084fc, transparent);
+            top: -100px;
+            right: -100px;
+            animation: orbFloat 12s ease-in-out infinite;
+        }
+
+        body::after {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, #f4a3c8, transparent);
+            bottom: -100px;
+            left: -100px;
+            animation: orbFloat 15s ease-in-out infinite reverse;
+        }
+
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0); }
+            33% { transform: translate(30px, -30px); }
+            66% { transform: translate(-20px, 20px); }
+        }
+
+        /* === SPARKLE LAYER === */
         .magic-sparkles {
             position: fixed;
             top: 0;
@@ -54,59 +78,30 @@
             z-index: 1;
         }
 
-        .sparkle {
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background-color: white;
-            animation: twinkle var(--duration, 4s) ease-in-out infinite;
-            opacity: 0;
-        }
-
-        @keyframes twinkle {
-
-            0%,
-            100% {
-                opacity: 0;
-                transform: scale(0.5);
-            }
-
-            50% {
-                opacity: 0.8;
-                transform: scale(1);
-            }
-        }
-
-        /* Generate 50 sparkles with different positions and animations */
         .magic-sparkles::before,
         .magic-sparkles::after {
             content: '';
             position: absolute;
             width: 100%;
             height: 100%;
-            background-image: radial-gradient(circle, white 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: sparkleLayer 8s linear infinite;
-            opacity: 0.5;
+            background-image: radial-gradient(circle, rgba(192, 132, 252, 0.4) 1px, transparent 1px);
+            background-size: 60px 60px;
+            animation: sparkleLayer 10s linear infinite;
+            opacity: 0.3;
         }
 
         .magic-sparkles::after {
-            animation-delay: -4s;
+            animation-delay: -5s;
             transform: rotate(45deg);
+            background-image: radial-gradient(circle, rgba(244, 163, 200, 0.3) 1px, transparent 1px);
         }
 
         @keyframes sparkleLayer {
-            0% {
-                transform: translateY(0);
-            }
-
-            100% {
-                transform: translateY(-50px);
-            }
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-60px); }
         }
 
-        /* Floating Hearts */
+        /* === FLOATING HEARTS === */
         .floating-hearts {
             position: fixed;
             width: 100%;
@@ -118,95 +113,127 @@
         .heart {
             position: absolute;
             font-size: 1.5rem;
-            color: rgba(255, 105, 180, 0.6);
             animation: floatHeart var(--float-duration, 6s) ease-in-out infinite;
             animation-delay: var(--delay, 0s);
+            filter: drop-shadow(0 0 6px rgba(192, 132, 252, 0.3));
         }
 
         @keyframes floatHeart {
-            0% {
-                transform: translate(0, 100vh) rotate(0deg);
-            }
-
-            100% {
-                transform: translate(var(--translate-x, 0), -100vh) rotate(360deg);
-            }
+            0% { transform: translate(0, 100vh) rotate(0deg); opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { transform: translate(var(--translate-x, 0), -100vh) rotate(360deg); opacity: 0; }
         }
 
-        /* Welcome Section */
+        /* === WELCOME SECTION === */
         .welcome {
             text-align: center;
-            padding: 4rem 2rem;
+            padding: 5rem 2rem 3rem;
             position: relative;
             z-index: 3;
         }
 
+        .welcome-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, rgba(244, 163, 200, 0.12), rgba(192, 132, 252, 0.12));
+            border: 1px solid rgba(192, 132, 252, 0.2);
+            border-radius: 100px;
+            padding: 0.5rem 1.5rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #c084fc;
+            margin-bottom: 2rem;
+            animation: fadeInScale 1.5s ease both;
+        }
+
         .welcome h1 {
-            font-family: 'Dancing Script', cursive;
-            font-size: 4rem;
-            color: #ff69b4;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-            animation: fadeInScale 2s ease;
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #f4a3c8, #c084fc, #a78bfa, #f4a3c8);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmerText 4s ease infinite;
+            filter: drop-shadow(0 0 30px rgba(192, 132, 252, 0.2));
+        }
+
+        @keyframes shimmerText {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .welcome p {
-            font-size: 1.2rem;
+            font-size: 1.15rem;
+            font-weight: 300;
             max-width: 600px;
             margin: 1.5rem auto;
-            line-height: 1.6;
+            line-height: 1.8;
+            color: rgba(228, 204, 255, 0.75);
             animation: fadeIn 2s ease 0.5s both;
         }
 
-        /* Enhanced Memory Cards */
+        /* === MEMORY CARDS === */
         .memory-container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 2rem;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
             z-index: 3;
             position: relative;
         }
 
         .memory-card {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
             padding: 1.5rem;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            box-shadow:
+                0 8px 32px rgba(0, 0, 0, 0.25),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
         }
 
         .memory-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            transform: translateY(-12px) scale(1.02);
+            border-color: rgba(192, 132, 252, 0.2);
+            box-shadow:
+                0 20px 50px rgba(0, 0, 0, 0.3),
+                0 0 40px rgba(192, 132, 252, 0.08);
         }
 
         .memory-card::before {
             content: '';
             position: absolute;
             top: 0;
-            left: 0;
+            left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-            transform: translateX(-100%);
-            transition: 0.5s;
+            background: linear-gradient(90deg, transparent, rgba(192, 132, 252, 0.06), transparent);
+            transition: left 0.6s ease;
         }
 
         .memory-card:hover::before {
-            transform: translateX(100%);
+            left: 100%;
         }
 
         .memory-img {
             width: 100%;
-            height: 250px;
+            height: 260px;
             object-fit: cover;
-            border-radius: 15px;
-            margin-bottom: 1rem;
+            border-radius: 16px;
+            margin-bottom: 1.2rem;
             transition: transform 0.5s ease;
+            border: 1px solid rgba(255, 255, 255, 0.06);
         }
 
         .memory-card:hover .memory-img {
@@ -214,147 +241,222 @@
         }
 
         .memory-date {
-            font-family: 'Dancing Script', cursive;
-            color: #ff69b4;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
             font-size: 1.3rem;
-            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #f4a3c8, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.6rem;
         }
 
         .memory-caption {
-            font-size: 1rem;
-            line-height: 1.5;
-            color: #666;
+            font-size: 0.95rem;
+            font-weight: 300;
+            line-height: 1.7;
+            color: rgba(228, 204, 255, 0.7);
         }
 
-        /* Final Message Section */
+        /* === FLOWERS FOR HER === */
+        .floral-dedication {
+            max-width: 1080px;
+            margin: 1rem auto 2rem;
+            padding: clamp(1.5rem, 5vw, 4rem);
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(260px, 0.8fr);
+            align-items: center;
+            gap: clamp(2rem, 5vw, 5rem);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.72);
+            border-radius: 36px;
+            background: linear-gradient(135deg, #fff0f5 0%, #f9e7f5 52%, #f0e8ff 100%);
+            box-shadow: 0 24px 70px rgba(9, 4, 25, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            z-index: 3;
+        }
+
+        .floral-copy { position: relative; z-index: 1; }
+
+        .floral-kicker {
+            display: inline-block;
+            margin-bottom: 1rem;
+            color: #a44e7f;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        .floral-copy h2 {
+            margin-bottom: 1.2rem;
+            color: #542d58;
+            font: 700 clamp(2rem, 4vw, 3.3rem)/1.14 'Playfair Display', serif;
+            text-wrap: balance;
+        }
+
+        .floral-copy p {
+            max-width: 560px;
+            color: #765371;
+            font-size: 1.05rem;
+            font-weight: 300;
+            line-height: 1.9;
+        }
+
+        .floral-copy .floral-preface {
+            margin-bottom: 0.45rem;
+            color: #a44e7f;
+            font: italic 1.2rem/1.5 'Playfair Display', serif;
+        }
+
+        .floral-portrait-frame {
+            width: min(100%, 400px);
+            justify-self: center;
+            margin: 0;
+            position: relative;
+            padding: 0;
+            border: 0;
+            border-radius: 20px;
+            background: transparent;
+            box-shadow: 0 20px 55px rgba(70, 38, 55, 0.22);
+        }
+
+        .floral-portrait-frame img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 2 / 3;
+            object-fit: contain;
+            object-position: center;
+            border-radius: 20px;
+        }
+
+        /* === FINAL MESSAGE === */
         .final-message {
             text-align: center;
-            padding: 4rem 2rem;
-            background: rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(10px);
-            margin-top: 3rem;
+            padding: 5rem 2rem;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            margin-top: 4rem;
             position: relative;
             z-index: 3;
         }
 
         .final-message h2 {
-            font-family: 'Dancing Script', cursive;
+            font-family: 'Playfair Display', serif;
             font-size: 3rem;
-            color: #ff69b4;
+            font-weight: 900;
+            background: linear-gradient(135deg, #f4a3c8, #c084fc, #a78bfa);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmerText 4s ease infinite, heartbeat 2.5s ease-in-out infinite;
             margin-bottom: 2rem;
-            animation: heartbeat 2s infinite;
         }
 
         @keyframes heartbeat {
-
-            0%,
-            100% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.1);
-            }
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
         .final-message p {
-            font-size: 1.2rem;
-            max-width: 800px;
+            font-size: 1.1rem;
+            font-weight: 300;
+            max-width: 700px;
             margin: 0 auto 2rem;
-            line-height: 1.8;
+            line-height: 1.9;
+            color: rgba(228, 204, 255, 0.75);
         }
 
         .goodbye-btn {
             display: inline-block;
-            padding: 1rem 2rem;
-            font-size: 1.2rem;
-            background: linear-gradient(45deg, #ff69b4, #da70d6);
+            padding: 1.1rem 2.5rem;
+            font-size: 1.1rem;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 500;
+            background: linear-gradient(135deg, #f4a3c8, #c084fc);
             color: white;
             border: none;
-            border-radius: 50px;
+            border-radius: 60px;
             cursor: pointer;
             text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);
-            animation: float 3s infinite ease-in-out;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow:
+                0 4px 20px rgba(244, 163, 200, 0.4),
+                0 0 50px rgba(192, 132, 252, 0.1);
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.5px;
+        }
+
+        .goodbye-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+            animation: btnShimmer 3s infinite;
+        }
+
+        @keyframes btnShimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
         }
 
         .goodbye-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(255, 105, 180, 0.6);
+            transform: translateY(-4px) scale(1.05);
+            box-shadow:
+                0 8px 30px rgba(244, 163, 200, 0.5),
+                0 0 60px rgba(192, 132, 252, 0.2);
         }
 
-        @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-10px);
-            }
-        }
-
-        /* Animations */
+        /* === ANIMATIONS === */
         @keyframes fadeInScale {
-            0% {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
+            0% { opacity: 0; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
         }
 
         @keyframes fadeIn {
-            0% {
-                opacity: 0;
-            }
-
-            100% {
-                opacity: 1;
-            }
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* Generate Hearts */
-        .js-generate-hearts {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 2;
-        }
-
-        /* Custom Scrollbar */
+        /* === CUSTOM SCROLLBAR === */
         ::-webkit-scrollbar {
-            width: 12px;
+            width: 8px;
         }
 
         ::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.4);
+            background: rgba(26, 10, 46, 0.5);
         }
 
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(45deg, #ff69b4, #da70d6);
-            border-radius: 6px;
+            background: linear-gradient(180deg, #c084fc, #f4a3c8);
+            border-radius: 4px;
         }
 
-        /* Responsive Design */
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #a855f7, #f472b6);
+        }
+
+        /* === RESPONSIVE === */
         @media (max-width: 768px) {
-            .welcome h1 {
-                font-size: 3rem;
-            }
+            .welcome h1 { font-size: 2.5rem; }
+            .memory-container { grid-template-columns: 1fr; padding: 1rem; }
+            .floral-dedication { grid-template-columns: 1fr; text-align: center; margin: 0 1rem 2rem; }
+            .floral-copy p { margin-inline: auto; }
+            .floral-portrait-frame { width: min(82%, 400px); }
+            .final-message h2 { font-size: 2.2rem; }
+            .final-message { padding: 3rem 1.5rem; }
+        }
 
-            .memory-container {
-                grid-template-columns: 1fr;
-            }
-
-            .final-message h2 {
-                font-size: 2.5rem;
-            }
+        @media (max-width: 480px) {
+            .welcome { padding: 3rem 1rem 2rem; }
+            .welcome h1 { font-size: 2rem; }
+            .goodbye-btn { padding: 1rem 2rem; font-size: 1rem; }
         }
     </style>
 </head>
@@ -362,47 +464,56 @@
 <body>
     <div class="magic-sparkles"></div>
     <div class="floating-hearts">
-        <!-- Hearts will be generated via CSS -->
-        <div class="heart" style="--float-duration: 6s; --delay: 0s; --translate-x: 20px;">💝</div>
-        <div class="heart" style="--float-duration: 8s; --delay: 1s; --translate-x: -30px;">💖</div>
-        <div class="heart" style="--float-duration: 7s; --delay: 2s; --translate-x: 40px;">💗</div>
-        <div class="heart" style="--float-duration: 9s; --delay: 3s; --translate-x: -20px;">💓</div>
-        <div class="heart" style="--float-duration: 5s; --delay: 4s; --translate-x: 30px;">💕</div>
+        <div class="heart" style="--float-duration: 7s; --delay: 0s; --translate-x: 25px; left: 5%;">💜</div>
+        <div class="heart" style="--float-duration: 9s; --delay: 1.5s; --translate-x: -35px; left: 20%;">🌸</div>
+        <div class="heart" style="--float-duration: 8s; --delay: 2.5s; --translate-x: 40px; left: 40%;">✨</div>
+        <div class="heart" style="--float-duration: 10s; --delay: 3.5s; --translate-x: -25px; left: 65%;">💫</div>
+        <div class="heart" style="--float-duration: 6s; --delay: 4.5s; --translate-x: 30px; left: 85%;">🦋</div>
+        <div class="heart" style="--float-duration: 11s; --delay: 0.5s; --translate-x: -20px; left: 50%;">💜</div>
+        <div class="heart" style="--float-duration: 8s; --delay: 5s; --translate-x: 15px; left: 75%;">⭐</div>
     </div>
 
     <section class="welcome">
-        <h1>Our Beautiful Moments Together</h1>
-        <p>Every moment spent with you has been magical. Let's cherish these precious memories ...</p>
+        <div class="welcome-badge">📸 memory lane</div>
+        <h1>Moments That Made Us, Us</h1>
+        <p>Somewhere between our laughs and little moments, you became the person my heart is happiest with. I love you so much, Swats, and I hope this page shows even a little of how special you are to me. 💜</p>
+    </section>
+
+    <section class="floral-dedication" aria-labelledby="floral-title">
+        <div class="floral-copy">
+            <span class="floral-kicker">A bouquet for my favorite girl</span>
+            <h2 id="floral-title">In a garden full of flowers, I would still look for you.</h2>
+            <p class="floral-preface">I wish you could see yourself through my eyes.</p>
+            <p>I chose your favorite tulips and lilies, but they still cannot show you what I see: the kindness, the light, and the beauty that make me fall for you more every day. I love you, Swats.</p>
+        </div>
+        <figure class="floral-portrait-frame">
+            <img src="./swats-framed-floral-portrait.png" alt="Framed storybook portrait of Swats holding tulips and lilies">
+        </figure>
     </section>
 
     <div class="memory-container">
         <div class="memory-card">
-            <img src="./d1.jpg" alt="First Date" class="memory-img">
-            <div class="memory-date">Her Smile Says It All</div>
-            <div class="memory-caption">You’re truly one of the sweetest girls I know, and I feel lucky to have a sis
-                like you.❤️</div>
+            <img src="./swathij_18.jpg" alt="Swats" class="memory-img">
+            <div class="memory-date">That Smile That Fixes Everything</div>
+            <div class="memory-caption">Your smile has a way of making my whole world softer. Every time I am with you, I feel lucky all over again. I love you more than these words can say. ❤️</div>
         </div>
         <div class="memory-card">
-            <img src="./d2.jpg" alt="Beach Day" class="memory-img">
-            <div class="memory-date">Together Vibes</div>
-            <div class="memory-caption">May your journey ahead be filled with happiness, success, and endless
-                smiles.😊💕</div>
+            <img src="./swathij_18_1.jpg" alt="Swats" class="memory-img">
+            <div class="memory-date">Us Against the World</div>
+            <div class="memory-caption">I want more of everything with you—more laughter, more adventures, and quiet little moments together. You have my heart. 😊💜</div>
         </div>
         <div class="memory-card">
-            <img src="./d3.jpg" alt="Movie Night" class="memory-img">
-            <div class="memory-date">Pretty Soul</div>
-            <div class="memory-caption">Keep being the amazing person you are—you make every moment brighter.🌸💖</div>
+            <img src="./swathij_18_3.jpg" alt="Swats" class="memory-img">
+            <div class="memory-date">A Soul Full of Magic</div>
+            <div class="memory-caption">Your kindness, your warmth, and the way you light up every room make me fall for you in a thousand little ways. I love you exactly as you are. 🌸✨</div>
         </div>
-
     </div>
 
     <section class="final-message">
-        <h2>Thank You for the Memories</h2>
-        <p>Every laugh, every chat, and every moment we’ve shared has been truly special.💫<br>
-            I’m so grateful for the bond we have, and for the positivity you always bring into my life.<br>
-            On your birthday, I just wish for endless happiness, love, and success to come your way.🌸</p>
-        <p>You deserve all the joy in the world—keep shining and spreading your beautiful energy.✨</p>
-        <a href="#" class="goodbye-btn">Until We Meet Again 💝</a>
+        <h2>To the Girl I Love, Swats 💜</h2>
+        <p>You are my favorite person, the one who makes ordinary days feel extraordinary, and the one I want beside me for every adventure ahead. Thank you for being you. I love you with all my heart. 💫</p>
+        <p>I hope your birthday brings you back even a little of the joy and love you give to everyone around you. You deserve every beautiful thing in life—today and always. ✨</p>
+        <a href="#" class="goodbye-btn">Forever &amp; Always 💜</a>
     </section>
 </body>
 

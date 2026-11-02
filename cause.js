@@ -1,35 +1,95 @@
- // Reasons database
- const reasons = [
+// ============================
+// PARTICLE STARFIELD (same vibe as index)
+// ============================
+const canvas = document.getElementById('particle-canvas');
+const ctx = canvas.getContext('2d');
+
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+const starParticles = [];
+for (let i = 0; i < 60; i++) {
+    starParticles.push({
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        size: Math.random() * 1.5 + 0.5,
+        speedX: (Math.random() - 0.5) * 0.2,
+        speedY: (Math.random() - 0.5) * 0.2,
+        phase: Math.random() * Math.PI * 2,
+        color: ['rgba(192,132,252,', 'rgba(244,163,200,', 'rgba(167,139,250,'][Math.floor(Math.random() * 3)]
+    });
+}
+
+let frameTime = 0;
+function drawStars() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    frameTime++;
+    starParticles.forEach(s => {
+        s.x += s.speedX;
+        s.y += s.speedY;
+        if (s.x < 0 || s.x > canvas.width) s.speedX *= -1;
+        if (s.y < 0 || s.y > canvas.height) s.speedY *= -1;
+        const opacity = (Math.sin(frameTime * 0.015 + s.phase) + 1) / 2 * 0.5 + 0.15;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+        ctx.fillStyle = `${s.color}${opacity})`;
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = `${s.color}0.3)`;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+    });
+    requestAnimationFrame(drawStars);
+}
+drawStars();
+
+
+// ============================
+// REASONS DATABASE (Rephrased & Unique)
+// ============================
+const reasons = [
     { 
-        text: "You’re such a kind and wonderful person, and I feel lucky to share such a good bond with you. 💖", 
+        text: "Your kindness isn't just rare — it's a whole vibe. Grateful doesn't even begin to cover how I feel about our bond. 💜", 
         emoji: "🌟",
         gif: "gif1.gif"
     },
     { 
-        text: "May your day be filled with love, laughter, and endless joy. 🌸 ", 
-        emoji: "💗",
+        text: "May today overflow with the same love and laughter you pour into everyone else's life. You deserve it tenfold. 🌸", 
+        emoji: "💜",
         gif: "gif2.gif"
     },
     { 
-        text: "Wishing you success, happiness, and everything your heart desires. ✨ ", 
-        emoji: "💕",
+        text: "Wishing you a year full of plot twists you actually enjoy — success, peace, and everything your heart secretly hopes for. ✨", 
+        emoji: "🦋",
         gif: "gif1.gif"
     },
     { 
-        text: "Stay the amazing girl you are—always spreading positivity around. Have the happiest year ahead! 🥳 ", 
-        emoji: "🌟",
+        text: "Never change that energy of yours — the kind that makes everyone around you feel like they matter. Here's to you, superstar. 🥳", 
+        emoji: "⭐",
         gif: "gif2.gif"
     }
 ];
 
-// State management
+
+// ============================
+// STATE MANAGEMENT
+// ============================
 let currentReasonIndex = 0;
 const reasonsContainer = document.getElementById('reasons-container');
 const shuffleButton = document.querySelector('.shuffle-button');
 const reasonCounter = document.querySelector('.reason-counter');
 let isTransitioning = false;
 
-// Create reason card with gif
+// Keep the next action after the growing list so the user can continue downward.
+reasonsContainer.after(reasonCounter, shuffleButton);
+
+
+// ============================
+// CREATE REASON CARD
+// ============================
 function createReasonCard(reason) {
     const card = document.createElement('div');
     card.className = 'reason-card';
@@ -38,24 +98,15 @@ function createReasonCard(reason) {
     text.className = 'reason-text';
     text.innerHTML = `${reason.emoji} ${reason.text}`;
     
-    const gifOverlay = document.createElement('div');
-    gifOverlay.className = 'gif-overlay';
-    gifOverlay.innerHTML = `<img src="${reason.gif}" alt="Friendship Memory">`;
-    
     card.appendChild(text);
-    card.appendChild(gifOverlay);
     
-    gsap.from(card, {
-        opacity: 0,
-        y: 50,
-        duration: 0.5,
-        ease: "back.out"
-    });
-
     return card;
 }
 
-// Display new reason
+
+// ============================
+// DISPLAY NEW REASON
+// ============================
 function displayNewReason() {
     if (isTransitioning) return;
     isTransitioning = true;
@@ -63,9 +114,24 @@ function displayNewReason() {
     if (currentReasonIndex < reasons.length) {
         const card = createReasonCard(reasons[currentReasonIndex]);
         reasonsContainer.appendChild(card);
+
+        // Keep the card in the page even if the animation library is unavailable.
+        if (window.gsap) {
+            gsap.from(card, {
+                opacity: 0,
+                y: 50,
+                scale: 0.95,
+                duration: 0.6,
+                ease: "back.out(1.5)"
+            });
+        }
+
+        requestAnimationFrame(() => {
+            shuffleButton.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
         
-        // Update counter
-        reasonCounter.textContent = `Reason ${currentReasonIndex + 1} of ${reasons.length}`;
+        // Update counter with styled text
+        reasonCounter.textContent = `✦ ${currentReasonIndex + 1} of ${reasons.length} reasons ✦`;
         
         currentReasonIndex++;
 
@@ -76,14 +142,22 @@ function displayNewReason() {
                 duration: 0.5,
                 ease: "elastic.out",
                 onComplete: () => {
-                    shuffleButton.textContent = "Enter Our Storylane 💫";
+                    shuffleButton.querySelector('.btn-inner').textContent = "Enter Our Memory Lane 💫";
                     shuffleButton.classList.add('story-mode');
                     shuffleButton.addEventListener('click', () => {
+                        gsap.to('.container', {
+                            scale: 0.9,
+                            opacity: 0,
+                            filter: 'blur(10px)',
+                            duration: 0.8,
+                            ease: "power3.in"
+                        });
                         gsap.to('body', {
                             opacity: 0,
-                            duration: 1,
+                            duration: 1.2,
+                            delay: 0.3,
                             onComplete: () => {
-                                window.location.href = 'last.html'; // Replace with the actual URL of the next page
+                                window.location.href = 'last.html';
                             }
                         });
                     });
@@ -96,18 +170,17 @@ function displayNewReason() {
         
         setTimeout(() => {
             isTransitioning = false;
-        }, 500);
-    } else {
-        // Handle navigation to new page or section
-        window.location.href = "#storylane";
-        // Or trigger your next page functionality
+        }, 600);
     }
 }
 
-// Initialize button click
+
+// ============================
+// BUTTON CLICK HANDLER
+// ============================
 shuffleButton.addEventListener('click', () => {
     gsap.to(shuffleButton, {
-        scale: 0.9,
+        scale: 0.92,
         duration: 0.1,
         yoyo: true,
         repeat: 1
@@ -115,26 +188,62 @@ shuffleButton.addEventListener('click', () => {
     displayNewReason();
 });
 
-// Floating elements function (same as before)
+
+// ============================
+// FLOATING ELEMENTS
+// ============================
 function createFloatingElement() {
-    const elements = ['🌸', '✨', '💖', '🦋', '⭐'];
+    const elements = ['🌸', '✨', '💜', '🦋', '⭐', '💫', '🌙'];
     const element = document.createElement('div');
     element.className = 'floating';
     element.textContent = elements[Math.floor(Math.random() * elements.length)];
     element.style.left = Math.random() * window.innerWidth + 'px';
     element.style.top = Math.random() * window.innerHeight + 'px';
-    element.style.fontSize = (Math.random() * 20 + 10) + 'px';
+    element.style.fontSize = (Math.random() * 18 + 12) + 'px';
     document.body.appendChild(element);
 
     gsap.to(element, {
-        y: -500,
-        duration: Math.random() * 10 + 10,
+        y: -(Math.random() * 400 + 300),
+        x: Math.random() * 100 - 50,
+        rotation: Math.random() * 360,
+        duration: Math.random() * 8 + 6,
         opacity: 0,
         onComplete: () => element.remove()
     });
 }
 
-// Custom cursor (same as before)
+
+// ============================
+// CLICK SPARKLE BURST
+// ============================
+document.addEventListener('click', (e) => {
+    for (let i = 0; i < 6; i++) {
+        const sparkle = document.createElement('div');
+        sparkle.textContent = ['✨', '💫', '⭐'][Math.floor(Math.random() * 3)];
+        sparkle.style.position = 'fixed';
+        sparkle.style.left = e.clientX + 'px';
+        sparkle.style.top = e.clientY + 'px';
+        sparkle.style.pointerEvents = 'none';
+        sparkle.style.fontSize = (Math.random() * 12 + 10) + 'px';
+        sparkle.style.zIndex = '9999';
+        document.body.appendChild(sparkle);
+
+        gsap.to(sparkle, {
+            x: (Math.random() - 0.5) * 120,
+            y: (Math.random() - 0.5) * 120,
+            opacity: 0,
+            scale: 0,
+            duration: 0.7 + Math.random() * 0.4,
+            ease: "power2.out",
+            onComplete: () => sparkle.remove()
+        });
+    }
+});
+
+
+// ============================
+// CUSTOM CURSOR
+// ============================
 const cursor = document.querySelector('.custom-cursor');
 document.addEventListener('mousemove', (e) => {
     gsap.to(cursor, {
@@ -144,5 +253,8 @@ document.addEventListener('mousemove', (e) => {
     });
 });
 
-// Create initial floating elements
-setInterval(createFloatingElement, 2000);
+
+// ============================
+// PERIODIC FLOATING ELEMENTS
+// ============================
+setInterval(createFloatingElement, 2500);

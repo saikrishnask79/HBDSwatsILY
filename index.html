@@ -1,23 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday</title>
+    <title>Happy Birthday Swats ✨</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <link rel="stylesheet" href="style.css">
-    
 </head>
+
 <body>
+    <!-- Particle canvas for starfield effect -->
+    <canvas id="particle-canvas"></canvas>
+
     <div class="cursor"></div>
+    <div class="cursor-trail"></div>
+
     <div class="container">
-        <h1>Happy Birthday Priya💗</h1>
+        <div class="badge">🎂 It's her special day</div>
+        <h1 class="title">
+            <span class="title-line">Happy Birthday</span>
+            <span class="title-name">Swats</span>
+            <span class="title-emoji">💗</span>
+        </h1>
         <div class="greeting"></div>
-        <button class="cta-button">Click to Enter Our World 💕</button>
+        <button class="cta-button">
+            <span class="btn-text">Step Into Something Special 💕</span>
+            <span class="btn-shimmer"></span>
+        </button>
     </div>
 
-    <script src="script.js">
-        
-    </script>
+    <script src="script.js"></script>
 </body>
+
 </html>
