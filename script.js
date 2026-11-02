@@ -120,7 +120,7 @@ animateTrail();
 // ============================
 // TYPING EFFECT
 // ============================
-const greetingText = "Hey Swats! You light up every room you walk into — the world's a better place with you in it. 💫";
+const greetingText = "Hey Swats! In a world full of beautiful things, somehow, you're the one I keep looking at. ❤️";
 const greetingElement = document.querySelector('.greeting');
 let charIndex = 0;
 
