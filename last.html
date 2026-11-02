@@ -413,6 +413,260 @@
                 0 0 60px rgba(192, 132, 252, 0.2);
         }
 
+        /* === BIRTHDAY SURPRISE === */
+        .birthday-surprise {
+            position: fixed;
+            inset: 0;
+            margin: auto;
+            width: min(760px, 92vw);
+            max-width: 92vw;
+            padding: 0;
+            border: 1px solid rgba(255, 231, 244, 0.75);
+            border-radius: 32px;
+            overflow: hidden;
+            color: #55305a;
+            background: linear-gradient(145deg, #fff8fb, #f9e8f7 58%, #eee7ff);
+            box-shadow: 0 30px 100px rgba(7, 2, 20, 0.5);
+        }
+
+        .birthday-surprise::backdrop {
+            background: rgba(13, 5, 28, 0.78);
+            backdrop-filter: blur(8px);
+        }
+
+        .birthday-surprise[open] {
+            animation: surpriseOpen 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+        }
+
+        .surprise-inner {
+            min-height: 430px;
+            padding: clamp(3rem, 7vw, 5rem) 2rem 3rem;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+            background:
+                radial-gradient(ellipse at 50% 100%, rgba(255, 183, 213, 0.35), transparent 52%),
+                radial-gradient(ellipse at 0% 0%, rgba(192, 132, 252, 0.16), transparent 45%);
+        }
+
+        .surprise-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 42px;
+            height: 42px;
+            border: 1px solid rgba(116, 68, 117, 0.2);
+            border-radius: 50%;
+            color: #69466c;
+            background: rgba(255, 255, 255, 0.7);
+            font-size: 1.7rem;
+            line-height: 1;
+            cursor: pointer;
+            z-index: 4;
+        }
+
+        .surprise-close:hover { background: #fff; }
+
+        .surprise-bubbles {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .surprise-crackers {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .cracker-burst {
+            position: absolute;
+            width: clamp(70px, 13vw, 110px);
+            aspect-ratio: 1;
+            opacity: 0;
+            background: repeating-conic-gradient(var(--burst-color) 0deg 3deg, transparent 3deg 18deg);
+            -webkit-mask: radial-gradient(circle, transparent 0 9%, #000 17% 68%, transparent 72%);
+            mask: radial-gradient(circle, transparent 0 9%, #000 17% 68%, transparent 72%);
+            filter: drop-shadow(0 0 9px var(--burst-color));
+            animation: crackerBurst 1.65s ease-out infinite;
+            animation-delay: var(--burst-delay);
+        }
+
+        .cracker-burst::after {
+            content: '';
+            position: absolute;
+            inset: 42%;
+            border-radius: 50%;
+            background: #fff;
+            box-shadow: 0 0 12px 4px var(--burst-color);
+        }
+
+        .cracker-burst.top-left { top: 3%; left: -4%; --burst-color: #ff8db7; --burst-delay: 0s; }
+        .cracker-burst.top-right { top: 7%; right: -3%; --burst-color: #a88bff; --burst-delay: 0.42s; }
+        .cracker-burst.bottom-left { bottom: -3%; left: 2%; --burst-color: #ffc55e; --burst-delay: 0.82s; }
+        .cracker-burst.bottom-right { bottom: 0; right: -2%; --burst-color: #70d6cb; --burst-delay: 1.18s; }
+
+        @keyframes crackerBurst {
+            0% { opacity: 0; transform: scale(0.08) rotate(-18deg); }
+            18% { opacity: 0.95; }
+            72% { opacity: 0.7; }
+            100% { opacity: 0; transform: scale(1.5) rotate(34deg); }
+        }
+
+        .surprise-bubbles span {
+            position: absolute;
+            left: var(--bubble-left);
+            bottom: -45px;
+            width: var(--bubble-size);
+            height: var(--bubble-size);
+            border: 1px solid rgba(255, 255, 255, 0.82);
+            border-radius: 50%;
+            background: radial-gradient(circle at 32% 28%, rgba(255,255,255,0.9), rgba(244,163,200,0.12) 55%, rgba(192,132,252,0.1));
+            box-shadow: inset -3px -3px 8px rgba(192, 132, 252, 0.12), 0 0 12px rgba(255, 255, 255, 0.25);
+            animation: bubbleRise var(--bubble-duration) ease-in infinite;
+            animation-delay: var(--bubble-delay);
+        }
+
+        .surprise-flowers {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.7rem;
+            margin-bottom: 0.35rem;
+            font-size: clamp(2.2rem, 6vw, 3.5rem);
+            filter: drop-shadow(0 5px 8px rgba(108, 54, 103, 0.14));
+            animation: flowerPop 0.65s 0.15s cubic-bezier(0.2, 1.6, 0.4, 1) both;
+            z-index: 1;
+        }
+
+        .surprise-flowers span {
+            display: inline-block;
+            transform-origin: 50% 85%;
+            animation: flowerSway 2.8s ease-in-out infinite;
+        }
+
+        .surprise-flowers span:nth-child(2) { animation-delay: -0.9s; }
+        .surprise-flowers span:nth-child(3) { animation-delay: -1.5s; }
+        .surprise-flowers .lily { color: #a477ba; font-size: 0.85em; }
+
+        .surprise-petals,
+        .surprise-twinkles {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .surprise-petals span {
+            position: absolute;
+            left: var(--petal-left);
+            bottom: -24px;
+            width: var(--petal-size);
+            height: calc(var(--petal-size) * 1.45);
+            border-radius: 85% 0 85% 0;
+            background: linear-gradient(145deg, #fff7fb, #f3a7c9 70%, #d4a7f2);
+            box-shadow: 0 0 10px rgba(244, 163, 200, 0.32);
+            opacity: 0;
+            animation: petalDrift var(--petal-duration) ease-in infinite;
+            animation-delay: var(--petal-delay);
+        }
+
+        .surprise-twinkles span {
+            position: absolute;
+            color: #fff9d9;
+            font-size: var(--twinkle-size);
+            line-height: 1;
+            text-shadow: 0 0 12px rgba(255, 223, 138, 0.9), 0 0 24px rgba(255, 255, 255, 0.65);
+            animation: twinkle 1.8s ease-in-out infinite;
+            animation-delay: var(--twinkle-delay);
+        }
+
+        .surprise-twinkles .twinkle-one { top: 34%; left: 16%; }
+        .surprise-twinkles .twinkle-two { top: 31%; right: 17%; }
+        .surprise-twinkles .twinkle-three { bottom: 24%; left: 23%; }
+        .surprise-twinkles .twinkle-four { bottom: 21%; right: 22%; }
+
+        .surprise-cake {
+            margin: 0.1rem 0 0.45rem;
+            font-size: clamp(5rem, 14vw, 8rem);
+            line-height: 1.1;
+            filter: drop-shadow(0 12px 16px rgba(117, 61, 100, 0.2));
+            transform-origin: 50% 100%;
+            animation: cakePop 0.85s 0.2s cubic-bezier(0.16, 1.4, 0.35, 1) both;
+            z-index: 1;
+        }
+
+        .surprise-title {
+            margin: 0 0 0.7rem;
+            color: #754477;
+            font: 900 clamp(2rem, 6vw, 3.3rem)/1.15 'Playfair Display', serif;
+            text-shadow: 0 3px 18px rgba(244, 163, 200, 0.32);
+            z-index: 1;
+        }
+
+        .surprise-note {
+            max-width: 480px;
+            margin: 0;
+            color: #795f79;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            z-index: 1;
+        }
+
+        @keyframes cakePop {
+            0% { opacity: 0; transform: translateY(90px) scale(0.25) rotate(-12deg); }
+            65% { opacity: 1; transform: translateY(-10px) scale(1.12) rotate(3deg); }
+            82% { transform: translateY(4px) scale(0.96) rotate(-1deg); }
+            100% { opacity: 1; transform: translateY(0) scale(1) rotate(0); }
+        }
+
+        @keyframes flowerPop {
+            from { opacity: 0; transform: scale(0.4) translateY(18px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        @keyframes flowerSway {
+            0%, 100% { transform: rotate(-6deg) translateY(0); }
+            50% { transform: rotate(6deg) translateY(-4px); }
+        }
+
+        @keyframes petalDrift {
+            0% { opacity: 0; transform: translate3d(0, 0, 0) rotate(0) scale(0.7); }
+            16% { opacity: 0.8; }
+            82% { opacity: 0.65; }
+            100% { opacity: 0; transform: translate3d(var(--petal-drift), -470px, 0) rotate(300deg) scale(1.1); }
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(0.65) rotate(-15deg); }
+            50% { opacity: 1; transform: scale(1.25) rotate(15deg); }
+        }
+
+        @keyframes bubbleRise {
+            0% { transform: translate3d(0, 0, 0) scale(0.65); opacity: 0; }
+            12% { opacity: 0.85; }
+            85% { opacity: 0.5; }
+            100% { transform: translate3d(30px, -520px, 0) scale(1.2); opacity: 0; }
+        }
+
+        @keyframes surpriseOpen {
+            from { opacity: 0; transform: translateY(20px) scale(0.96); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .birthday-surprise[open], .surprise-cake, .surprise-flowers, .surprise-flowers span, .surprise-bubbles span, .cracker-burst, .surprise-petals span, .surprise-twinkles span { animation: none; }
+        }
+
         /* === ANIMATIONS === */
         @keyframes fadeInScale {
             0% { opacity: 0; transform: scale(0.8); }
@@ -513,8 +767,58 @@
         <h2>To the Girl I Love, Swats 💜</h2>
         <p>You are my favorite person, the one who makes ordinary days feel extraordinary, and the one I want beside me for every adventure ahead. Thank you for being you. I love you with all my heart. 💫</p>
         <p>I hope your birthday brings you back even a little of the joy and love you give to everyone around you. You deserve every beautiful thing in life—today and always. ✨</p>
-        <a href="#" class="goodbye-btn">Forever &amp; Always 💜</a>
+        <button type="button" id="surprise-open" class="goodbye-btn">Continue to Your Birthday Surprise 🎂</button>
     </section>
+
+    <dialog class="birthday-surprise" id="birthday-surprise" aria-labelledby="surprise-title">
+        <div class="surprise-inner">
+            <button type="button" class="surprise-close" id="surprise-close" aria-label="Close birthday surprise">×</button>
+            <div class="surprise-bubbles" aria-hidden="true">
+                <span style="--bubble-left: 8%; --bubble-size: 18px; --bubble-duration: 7s; --bubble-delay: -1s"></span>
+                <span style="--bubble-left: 18%; --bubble-size: 30px; --bubble-duration: 8s; --bubble-delay: -4s"></span>
+                <span style="--bubble-left: 29%; --bubble-size: 13px; --bubble-duration: 6s; --bubble-delay: -2s"></span>
+                <span style="--bubble-left: 42%; --bubble-size: 24px; --bubble-duration: 9s; --bubble-delay: -6s"></span>
+                <span style="--bubble-left: 56%; --bubble-size: 16px; --bubble-duration: 7s; --bubble-delay: -3s"></span>
+                <span style="--bubble-left: 68%; --bubble-size: 28px; --bubble-duration: 8s; --bubble-delay: -5s"></span>
+                <span style="--bubble-left: 81%; --bubble-size: 15px; --bubble-duration: 6.5s; --bubble-delay: -2.5s"></span>
+                <span style="--bubble-left: 92%; --bubble-size: 23px; --bubble-duration: 9s; --bubble-delay: -7s"></span>
+            </div>
+            <div class="surprise-crackers" aria-hidden="true">
+                <span class="cracker-burst top-left"></span>
+                <span class="cracker-burst top-right"></span>
+                <span class="cracker-burst bottom-left"></span>
+                <span class="cracker-burst bottom-right"></span>
+            </div>
+            <div class="surprise-petals" aria-hidden="true">
+                <span style="--petal-left: 12%; --petal-size: 11px; --petal-duration: 8s; --petal-delay: -2s; --petal-drift: 55px"></span>
+                <span style="--petal-left: 27%; --petal-size: 8px; --petal-duration: 7s; --petal-delay: -5s; --petal-drift: -35px"></span>
+                <span style="--petal-left: 44%; --petal-size: 12px; --petal-duration: 9s; --petal-delay: -3s; --petal-drift: 42px"></span>
+                <span style="--petal-left: 63%; --petal-size: 9px; --petal-duration: 7.5s; --petal-delay: -6s; --petal-drift: -48px"></span>
+                <span style="--petal-left: 83%; --petal-size: 12px; --petal-duration: 8.5s; --petal-delay: -1s; --petal-drift: 32px"></span>
+            </div>
+            <div class="surprise-twinkles" aria-hidden="true">
+                <span class="twinkle-one" style="--twinkle-size: 1.1rem; --twinkle-delay: 0s">✦</span>
+                <span class="twinkle-two" style="--twinkle-size: 1.4rem; --twinkle-delay: -0.6s">✧</span>
+                <span class="twinkle-three" style="--twinkle-size: 0.9rem; --twinkle-delay: -1s">✦</span>
+                <span class="twinkle-four" style="--twinkle-size: 1.2rem; --twinkle-delay: -0.3s">✧</span>
+            </div>
+            <div class="surprise-flowers" aria-hidden="true">
+                <span>🌷</span><span class="lily">✿</span><span>🌷</span>
+            </div>
+            <div class="surprise-cake" aria-hidden="true">🎂</div>
+            <h2 class="surprise-title" id="surprise-title">Happy Birthday, Swats! 🎉</h2>
+            <p class="surprise-note">Your favorite flowers, a little birthday cake, and all my love—for you.</p>
+        </div>
+    </dialog>
+
+    <script>
+        const birthdaySurprise = document.getElementById('birthday-surprise');
+        document.getElementById('surprise-open').addEventListener('click', () => birthdaySurprise.showModal());
+        document.getElementById('surprise-close').addEventListener('click', () => birthdaySurprise.close());
+        birthdaySurprise.addEventListener('click', event => {
+            if (event.target === birthdaySurprise) birthdaySurprise.close();
+        });
+    </script>
 </body>
 
 </html>

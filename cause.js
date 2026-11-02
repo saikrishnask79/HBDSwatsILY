@@ -51,21 +51,25 @@ drawStars();
 // REASONS DATABASE (Rephrased & Unique)
 // ============================
 const reasons = [
-    { 
-        text: "Your kindness isn't just rare — it's a whole vibe. Grateful doesn't even begin to cover how I feel about our bond. 💜", 
-        emoji: "🌟"
+    {
+        title: "Your smile",
+        text: "It never fails to make my day better, no matter how it started.",
+        emoji: "💛"
     },
-    { 
-        text: "May today overflow with the same love and laughter you pour into everyone else's life. You deserve it tenfold. 🌸", 
+    {
+        title: "Your little gestures",
+        text: "The small things you do, the way you express yourself, and the little details about you that I can't help but notice.",
+        emoji: "✨"
+    },
+    {
+        title: "Our connection",
+        text: "I love how we can talk, laugh, tease each other, and be ourselves without trying too hard.",
         emoji: "💜"
     },
-    { 
-        text: "Wishing you a year full of plot twists you actually enjoy — success, peace, and everything your heart secretly hopes for. ✨", 
-        emoji: "🦋"
-    },
-    { 
-        text: "Never change that energy of yours — the kind that makes everyone around you feel like they matter. Here's to you, superstar. 🥳", 
-        emoji: "⭐"
+    {
+        title: "The way you make me feel",
+        text: "Even the simplest moments feel special with you. I love having you around, and I wouldn't trade what we share for anything.",
+        emoji: "❤️"
     }
 ];
 
@@ -75,12 +79,13 @@ const reasons = [
 // ============================
 let currentReasonIndex = 0;
 const reasonsContainer = document.getElementById('reasons-container');
+const reasonsClosing = document.getElementById('reasons-closing');
 const shuffleButton = document.querySelector('.shuffle-button');
 const reasonCounter = document.querySelector('.reason-counter');
 let isTransitioning = false;
 
 // Keep the next action after the growing list so the user can continue downward.
-reasonsContainer.after(reasonCounter, shuffleButton);
+reasonsContainer.after(reasonsClosing, reasonCounter, shuffleButton);
 
 
 // ============================
@@ -92,7 +97,19 @@ function createReasonCard(reason) {
     
     const text = document.createElement('div');
     text.className = 'reason-text';
-    text.innerHTML = `${reason.emoji} ${reason.text}`;
+
+    const emoji = document.createElement('span');
+    emoji.className = 'reason-emoji';
+    emoji.textContent = reason.emoji;
+
+    const title = document.createElement('strong');
+    title.className = 'reason-title';
+    title.textContent = reason.title;
+
+    const description = document.createElement('span');
+    description.textContent = ` — ${reason.text}`;
+
+    text.append(emoji, ' ', title, description);
     
     card.appendChild(text);
     
@@ -133,6 +150,7 @@ function displayNewReason() {
 
         // Check if we should transform the button
         if (currentReasonIndex === reasons.length) {
+            reasonsClosing.hidden = false;
             gsap.to(shuffleButton, {
                 scale: 1.1,
                 duration: 0.5,
